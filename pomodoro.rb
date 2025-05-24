@@ -7,7 +7,7 @@ def start_timer(minutes, is_break: false, title: 'pomodoro')
   seconds = 0
   while minutes >= 0
     while seconds >= 0
-      timer = sprintf("%02d:%02d", minutes, seconds)
+      timer = sprintf("🍅 %02d:%02d", minutes, seconds)
       `tmux rename-window -t 0 "#{is_break ? 'break! =)' : title} #{timer}"`
       sleep(1)
       seconds -= 1
@@ -18,7 +18,7 @@ def start_timer(minutes, is_break: false, title: 'pomodoro')
 end
 
 is_break = false
-timer_minutes = 40
+timer_minutes = 25
 title = 'pomodoro'
 message = "Pomodoro has finished. You can take a break now"
 
@@ -40,4 +40,14 @@ else # if we run either with a number or a title: ./pomodoro.rb <title|minutes>
 end
 
 start_timer(timer_minutes, is_break: is_break, title: title)
-`say "#{message}"`
+
+`afplay /System/Library/Sounds/Hero.aiff` # Play sound
+
+while true
+# smile emoji => 
+#
+  `tmux rename-window -t 0 "🍅 FINISHED 🍅"`
+  sleep(1)
+  `tmux rename-window -t 0 "⚠️ TAKE A BREAK ⚠️"`
+  sleep(1)
+end
