@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
   keys = {
-    { "<leader>aa", "<Cmd>AvanteAsk<Cr>", mode = { "n", "v" } },        -- Open Avante Ask
+    { "<leader>a", "<Cmd>AvanteAsk<Cr>", mode = { "n", "v" } },        -- Open Avante Ask
     { "<leader>af", "<Cmd>AvanteFocus<Cr>", mode = { "n", "v" } },      -- Focus Avante
     { "<leader>ac", "<Cmd>AvanteClear<Cr>", mode = { "n", "v" } },      -- Clear Avante
     { "<leader>as", "<Cmd>AvanteStop<Cr>", mode = { "n", "v" } },       -- Stop Avante
