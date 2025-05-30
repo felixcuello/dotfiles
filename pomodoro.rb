@@ -20,14 +20,12 @@ end
 is_break = false
 timer_minutes = 25
 title = 'pomodoro'
-message = "Pomodoro has finished. You can take a break now"
 
 if ARGV.count == 2 # If we run: ./pomodoro.rb <title> <minutes>
   title = ARGV[0]
   timer_minutes = ARGV[1].to_i if ARGV[1].to_i.positive?
   is_break = false
 elsif ARGV[0] == 'break' # if we take a break: ./pomodoro.rb break
-  message = "Break has finished. You can start working now"
   is_break = true
 else # if we run either with a number or a title: ./pomodoro.rb <title|minutes>
   if ARGV[0].to_i.positive?
@@ -41,13 +39,15 @@ end
 
 start_timer(timer_minutes, is_break: is_break, title: title)
 
-`afplay /System/Library/Sounds/Hero.aiff` # Play sound
+3.times do
+  `osascript -e 'display notification "#{timer_minutes}m have passed!" with title "🍅 POMODORO 🍅" sound name "Hero"'`
+  sleep 5
+end
 
 while true
 # smile emoji => 
 #
-  `tmux rename-window -t 0 "🍅 FINISHED 🍅"`
-  sleep(1)
-  `tmux rename-window -t 0 "⚠️ TAKE A BREAK ⚠️"`
-  sleep(1)
+  `tmux rename-window -t 0 "⚠️🍅 FINISHED 🍅⚠️"`
+  `osascript -e 'display notification "#{timer_minutes}m have passed!" with title "🍅 #{title} - Has Finished 🍅"'`
+  sleep 300
 end
