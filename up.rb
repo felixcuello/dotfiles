@@ -23,7 +23,7 @@ def log_time_spent(title, duration_minutes)
 
   # Prompt user for description
   print "Enter the description for '#{title}'> "
-  description = gets.chomp
+  description = STDIN.gets.chomp
 
   # Append the new entry
   CSV.open(csv_file, 'a') do |csv|
