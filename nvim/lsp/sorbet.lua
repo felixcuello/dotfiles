@@ -2,8 +2,8 @@
 -- LSP Configuration for Sorbet
 --
 return {
-  cmd = { 'bundle', 'exec', 'srb', 'tc', '--lsp' },
-  root_markers = { '.sorbet', 'sorbet/config' },
+  cmd = { "srb", "tc", "--lsp" },
+  root_markers = { 'Gemfile', '.git' },
   filetypes = { 'ruby' },
   init_options = {
     formatting = {
