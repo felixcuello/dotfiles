@@ -13,7 +13,10 @@ return {
     provider = "copilot",
     auto_suggestions_provider = "copilot",
     copilot = {
-      model = "claude-3.7-sonnet"
+      -- model = "claude-3.7-sonnet"
+      -- model = "gpt-4o", -- or any other model you prefer
+      -- model = "gpt-4.1", -- or any other model you prefer
+      model = "claude-sonnet-4", -- or any other model you prefer
     },
     openai = {
       endpoint = "https://api.githubcopilot.com",
