@@ -1,14 +1,13 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# SIMPLE TIMER
+# This is a simple timer to track time spent on tasks for the pomodoro
+
+require 'csv'
+require 'date'
+require 'time'
 require 'io/console'
-
-# This is an implementation of the Pomodoro Technique,
-# https://en.wikipedia.org/wiki/Pomodoro_Technique
-
-DEFAULT_TIMER_MINUTES = 25
-DEFAULT_TIMER_BREAK = 5
-DEFAULT_TIMER_TITLE = 'pomodoro'
 
 def get_terminal_size
   rows, cols = $stdout.winsize
@@ -30,7 +29,25 @@ def center_text(text, width, emoji: false)
   ' ' * padding + text
 end
 
-def tomato_art
+#  '⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜',
+#  '⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜',
+#  '⬜⬜⬜🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟦🟦⬜⬜⬜',
+#  '⬜⬜🟩🟩🟩🟩🔲🔲🔲🔲🔲🔲🔲🔲🟦🟦🟦🟦⬜⬜',
+#  '⬜⬜🟩🟩🟩🟩🔲🔲🔲🔲🔲🔲🔲🔲🟦🟦🟦🟦⬜⬜',
+#  '⬜⬜⬜🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟦🟦⬜⬜⬜',
+#  '⬜⬜⬜🔲🔲⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🔲🔲⬜⬜⬜',
+#  '⬜⬜⬜🔲🔲⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🔲🔲⬜⬜⬜',
+#  '⬜⬜⬜🔲🔲⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🔲🔲⬜⬜⬜',
+#  '⬜⬜⬜🔲🔲⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🔲🔲⬜⬜⬜',
+#  '⬜⬜⬜🔲🔲⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🔲🔲⬜⬜⬜',
+#  '⬜⬜⬜🔲🔲⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🔲🔲⬜⬜⬜',
+#  '⬜⬜⬜🟪🟪⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟨🟨⬜⬜⬜',
+#  '⬜⬜🟪🟪🟪🟪🔲🔲🔲🔲🔲🔲🔲🔲🟨🟨🟨🟨⬜⬜',
+#  '⬜⬜🟪🟪🟪🟪🔲🔲🔲🔲🔲🔲🔲🔲🟨🟨🟨🟨⬜⬜',
+#  '⬜⬜⬜🟪🟪⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟨🟨⬜⬜⬜',
+#  '⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜',
+#  '⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜',
+def pomodoro_art
   [
     '         🟩🟩🟩🟩',
     '      🟥🟩🟥🟩🟥🟩🟥',
@@ -123,6 +140,13 @@ def big_numbers
       '         ',
       '   ███   ',
       '         '
+    ],
+    '+' => [
+      '         ',
+      '    ██   ',
+      '  ██████ ',
+      '    ██   ',
+      '         '
     ]
   }
 end
@@ -142,27 +166,36 @@ def render_big_text(text)
   lines
 end
 
-def display_timer(minutes, seconds, rows, cols, is_break: false, title: 'pomodoro')
+def display_timer(minutes, seconds, rows, cols, overtime: false, title: 'Pomodoro')
   clear_screen
 
   # Calculate center positions
-  tomato_lines = tomato_art
-  tomato_start_row = (rows - tomato_lines.length - 8) / 2
+  pomodoro_lines = pomodoro_art
+  pomodoro_start_row = (rows - pomodoro_lines.length - 10) / 2
 
-  # Display tomato
-  tomato_lines.each_with_index do |line, i|
-    move_cursor(tomato_start_row + i, 1)
+  # Display pomodoro art
+  pomodoro_lines.each_with_index do |line, i|
+    move_cursor(pomodoro_start_row + i, 1)
     puts center_text(line, cols, emoji: true)
   end
 
   # Display title
-  title_row = tomato_start_row + tomato_lines.length + 1
+  title_row = pomodoro_start_row + pomodoro_lines.length + 1
   move_cursor(title_row, 1)
-  display_title = is_break ? '🍅 BREAK TIME! 🍅' : "🍅 #{title.upcase} 🍅"
+  display_title = if overtime
+                    "📚 #{title.upcase} - OVERTIME! 📚"
+                  else
+                    "📚 #{title.upcase} 📚"
+                  end
   puts center_text(display_title, cols)
 
   # Display timer
-  timer_text = format('%02d:%02d', minutes, seconds)
+  timer_text = if overtime
+                 format('+%02d:%02d', minutes, seconds)
+               else
+                 format('%02d:%02d', minutes, seconds)
+               end
+
   timer_lines = render_big_text(timer_text)
   timer_start_row = title_row + 2
 
@@ -171,113 +204,134 @@ def display_timer(minutes, seconds, rows, cols, is_break: false, title: 'pomodor
     puts center_text(line, cols)
   end
 
+  # Display instructions
+  move_cursor(timer_start_row + 6, 1)
+  puts center_text('Press CTRL+C to stop and record your time', cols)
+
   $stdout.flush
 end
 
-def display_finished(timer_minutes, title, rows, cols)
+def log_time_spent(title, duration_minutes)
+  csv_file = 'pomodoro.csv'
+
+  # Create file with headers if it doesn't exist
+  unless File.exist?(csv_file)
+    CSV.open(csv_file, 'w') do |csv|
+      csv << ['DATE & TIME', 'TASK', 'DESCRIPTION', 'DURATION']
+    end
+  end
+
+  # Format current date and time
+  current_datetime = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+
+  # Clear screen and ask for description
   clear_screen
+  print "Enter the description for '#{title}': "
+  description = STDIN.gets.chomp
 
-  # Calculate center positions
-  tomato_lines = tomato_art
-  tomato_start_row = (rows - tomato_lines.length - 12) / 2
-
-  # Display tomato
-  tomato_lines.each_with_index do |line, i|
-    move_cursor(tomato_start_row + i, 1)
-    puts center_text(line, cols, emoji: true)
+  # Append the new entry
+  CSV.open(csv_file, 'a') do |csv|
+    csv << [current_datetime, title, description, duration_minutes.round(2).ceil]
   end
 
-  # Display finished message
-  title_row = tomato_start_row + tomato_lines.length + 1
-  move_cursor(title_row, 1)
-  puts center_text("🍅 #{title.upcase} FINISHED! 🍅", cols)
-
-  # Display "TIME'S UP!" in big letters
-  finished_lines = render_big_text("TIME'S UP!")
-  finished_start_row = title_row + 2
-
-  finished_lines.each_with_index do |line, i|
-    move_cursor(finished_start_row + i, 1)
-    puts center_text(line, cols)
-  end
-
-  # Display completion time
-  move_cursor(finished_start_row + 6, 1)
-  puts center_text("#{timer_minutes} minutes completed!", cols)
-
-  $stdout.flush
+  clear_screen
+  puts "Session recorded: #{title} - #{duration_minutes.round(2).ceil} minutes"
+  puts "Description: #{description}"
+  puts "\nThank you for using Pomodoro Timer! 📚"
 end
 
-def start_timer(minutes, is_break: false, title: 'pomodoro')
-  rows, cols = get_terminal_size
+def start_timer(minutes, title)
+  # Hide cursor
+  print "\033[?25l"
+
+  start_time = Time.now
   seconds = 0
+  overtime = false
+  total_minutes_spent = 0
+  rows, cols = get_terminal_size
 
-  while minutes >= 0
+  # Handle CTRL+C to stop timer and log time
+  Signal.trap('INT') do
+    print "\033[?25h" # Restore cursor
+    end_time = Time.now
+    total_minutes_spent = (end_time - start_time) / 60.0
+    clear_screen
+    puts "\nTimer stopped. Total time spent: #{total_minutes_spent.round(2)} minutes"
+    log_time_spent(title, total_minutes_spent)
+    exit
+  end
+
+  # Countdown phase
+  while minutes >= 0 && !overtime
     while seconds >= 0
-      # Display visual timer
-      display_timer(minutes, seconds, rows, cols, is_break: is_break, title: title)
+      display_timer(minutes, seconds, rows, cols, overtime: false, title: title)
 
-      # Also update tmux window title for compatibility
-      timer = format('🍅 %02d:%02d', minutes, seconds)
-      system("tmux rename-window -t 0 '#{is_break ? 'break! =)' : title} #{timer}' 2>/dev/null")
+      timer = format('📚 %02d:%02d', minutes, seconds)
+      system("tmux rename-window -t 0 '#{title} #{timer}' 2>/dev/null")
 
       sleep(1)
       seconds -= 1
     end
     seconds = 59
     minutes -= 1
+
+    if minutes % 5 == 0 && minutes > 0
+      system("osascript -e 'display notification \"#{minutes}m remaining!\" with title \"PSQ 📚 TIMER\"' 2>/dev/null")
+    end
   end
 
-  [rows, cols]
+  # Timer completed, play sound and switch to overtime mode
+  system('afplay /System/Library/Sounds/Hero.aiff 2>/dev/null')
+
+  # Flash notification
+  3.times do
+    system("tmux rename-window -t 0 '📚 TIME COMPLETED 📚' 2>/dev/null")
+    sleep(0.5)
+    system("tmux rename-window -t 0 '📚 TRACKING OVERTIME 📚' 2>/dev/null")
+    sleep(0.5)
+  end
+
+  overtime = true
+
+  # Overtime phase - count upward
+  while overtime
+    elapsed_seconds = (Time.now - start_time).to_i
+    overtime_minutes = elapsed_seconds / 60
+    overtime_seconds = elapsed_seconds % 60
+
+    display_timer(overtime_minutes, overtime_seconds, rows, cols, overtime: true, title: title)
+
+    timer = format('📚 +%02d:%02d', overtime_minutes, overtime_seconds)
+    system("tmux rename-window -t 0 '#{title} #{timer} (OVERTIME)' 2>/dev/null")
+
+    if overtime_minutes % 5 == 0 && overtime_seconds % 5 == 0 && overtime_minutes > 0 && overtime_seconds == 0
+      system("osascript -e 'display notification \"📚 #{overtime_minutes}m have passed after the scheduled time\" with title \"⚠️ OVERTIME!! ⚠️\" sound name \"Hero\"' 2>/dev/null")
+    end
+
+    sleep(1)
+  end
 end
 
-# Hide cursor
-print "\033[?25l"
+# Trap to restore cursor on exit
+at_exit { print "\033[?25h" }
 
-# Trap interrupt to restore cursor
-trap('INT') do
-  print "\033[?25h"
-  clear_screen
-  exit
-end
+# Default values
+timer_minutes = 25
+title = 'PSQ'
 
-is_break = false
-timer_minutes = is_break ? DEFAULT_TIMER_BREAK : DEFAULT_TIMER_MINUTES
-title = DEFAULT_TIMER_TITLE
-
-if ARGV.count == 2 # If we run: ./pomodoro.rb <title> <minutes>
+if ARGV.count == 2 # If we run: ./psq.rb <title> <minutes>
   title = ARGV[0]
   timer_minutes = ARGV[1].to_i if ARGV[1].to_i.positive?
-  is_break = false
-elsif ARGV[0] == 'break' # if we take a break: ./pomodoro.rb break
-  is_break = true
-  timer_minutes = 5 # Default break time
-elsif ARGV[0] # if we run either with a number or a title: ./pomodoro.rb <title|minutes>
+elsif ARGV.count >= 1 # if we run with a single argument
   if ARGV[0].to_i.positive?
     timer_minutes = ARGV[0].to_i
   else
     title = ARGV[0]
   end
-
-  is_break = false
 end
 
-rows, cols = start_timer(timer_minutes, is_break: is_break, title: title)
+puts "Starting timer: #{title} for #{timer_minutes} minutes"
+puts 'Press CTRL+C at any time to stop and record your time'
+sleep(2) # Give user time to read the message
 
-# Show completion screen and notifications
-3.times do
-  display_finished(timer_minutes, title, rows, cols)
-  system("osascript -e 'display notification \"#{timer_minutes}m have passed!\" with title \"🍅 POMODORO 🍅\" sound name \"Hero\"' 2>/dev/null")
-  sleep 5
-end
-
-# Keep showing finished screen
-while true
-  display_finished(timer_minutes, title, rows, cols)
-  system("tmux rename-window -t 0 '⚠️🍅 FINISHED 🍅⚠️' 2>/dev/null")
-  system("osascript -e 'display notification \"#{timer_minutes}m have passed!\" with title \"🍅 #{title} - Has Finished 🍅\"' 2>/dev/null")
-  sleep 300
-end
-
-# Restore cursor on exit
-at_exit { print "\033[?25h" }
+start_timer(timer_minutes, title)
