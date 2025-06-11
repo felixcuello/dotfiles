@@ -33,7 +33,7 @@ def ordinal_suffix(day)
 end
 
 # Read CSV file
-csv_file = 'minutes.csv'
+csv_file = ARGV[0] || 'up.csv'
 unless File.exist?(csv_file)
   puts "Error: #{csv_file} not found!"
   exit 1
