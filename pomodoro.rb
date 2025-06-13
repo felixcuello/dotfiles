@@ -316,7 +316,7 @@ end
 at_exit { print "\033[?25h" }
 
 # Default values
-timer_minutes = 25
+timer_minutes = 40
 title = 'PSQ'
 
 if ARGV.count == 2 # If we run: ./psq.rb <title> <minutes>
