@@ -12,19 +12,23 @@ return {
   opts = {
     provider = "copilot",
     auto_suggestions_provider = "copilot",
-    copilot = {
-      -- model = "claude-3.7-sonnet"
-      -- model = "gpt-4o", -- or any other model you prefer
-      -- model = "gpt-4.1", -- or any other model you prefer
-      model = "claude-sonnet-4", -- or any other model you prefer
-    },
-    openai = {
-      endpoint = "https://api.githubcopilot.com",
-      model = "", -- your desired model (or use gpt-4o, etc.)
-      timeout = 30000, -- timeout in milliseconds
-      temperature = 0, -- adjust if needed
-      max_tokens = 4096,
-      -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+    providers = {
+      copilot = {
+        -- model = "claude-3.7-sonnet"
+        -- model = "gpt-4o", -- or any other model you prefer
+        -- model = "gpt-4.1", -- or any other model you prefer
+        model = "claude-sonnet-4", -- or any other model you prefer
+      },
+      openai = {
+        endpoint = "https://api.githubcopilot.com",
+        model = "", -- your desired model (or use gpt-4o, etc.)
+        timeout = 30000, -- timeout in milliseconds
+        extra_request_body = {
+          temperature = 0, -- adjust if needed
+          max_tokens = 4096,
+          -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+        },
+      },
     },
     behaviour = {
       auto_suggestions = false, -- Experimental stage
