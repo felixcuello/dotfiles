@@ -261,7 +261,7 @@ def start_timer(minutes, title)
     seconds = 59
     minutes -= 1
 
-    if minutes % 5 == 0 && minutes > 0
+    if minutes % 15 == 0 && minutes > 0
       system("osascript -e 'display notification \"#{minutes}m remaining!\" with title \"UP 📚 TIMER\"' 2>/dev/null")
     end
   end
@@ -290,7 +290,7 @@ def start_timer(minutes, title)
     timer = format('📚 +%02d:%02d', overtime_minutes, overtime_seconds)
     system("tmux rename-window -t 0 '#{title} #{timer} (OVERTIME)' 2>/dev/null")
 
-    if overtime_minutes % 5 == 0 && overtime_seconds % 5 == 0 && overtime_minutes > 0 && overtime_seconds == 0
+    if overtime_minutes % 10 == 0 && overtime_seconds % 5 == 0 && overtime_minutes > 0 && overtime_seconds == 0
       system("osascript -e 'display notification \"📚 #{overtime_minutes}m have passed after the scheduled time\" with title \"⚠️ OVERTIME!! ⚠️\" sound name \"Hero\"' 2>/dev/null")
     end
 
