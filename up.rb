@@ -217,7 +217,7 @@ def log_time_spent(title, duration_minutes)
 
   # Append the new entry
   CSV.open(csv_file, 'a') do |csv|
-    csv << [current_datetime, title, description, duration_minutes.round(2).ceil]
+    csv << [current_datetime, title.downcase, description, duration_minutes.round(2).ceil]
   end
 
   clear_screen
