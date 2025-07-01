@@ -65,9 +65,10 @@ weekly_data.keys.sort.each do |monday|
   total_hours = minutes_to_hours_minutes(total_minutes)
 
   # Format task breakdown
-  task_breakdown = week_tasks.map do |task, minutes|
+  task_breakdown = week_tasks.sort.map do |task, minutes|
     "#{task.upcase}: #{minutes_to_hours_minutes(minutes)}"
   end.join(', ')
 
-  puts "Week - #{week_label} => #{total_hours} (#{task_breakdown})"
+  puts "Week - #{week_label} => #{total_hours}\n    #{task_breakdown}"
+  puts ""
 end
