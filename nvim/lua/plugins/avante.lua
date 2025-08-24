@@ -7,7 +7,7 @@ return {
     { "<leader>af", "<Cmd>AvanteFocus<Cr>", mode = { "n", "v" } },      -- Focus Avante
     { "<leader>ac", "<Cmd>AvanteClear<Cr>", mode = { "n", "v" } },      -- Clear Avante
     { "<leader>as", "<Cmd>AvanteStop<Cr>", mode = { "n", "v" } },       -- Stop Avante
-    { "<leader>cc", "<Cmd>AvanteAsk Please read the buffer and replace the git diff with the corresponding commit message for this change. The commit change must semantic commit message with a title 50 characters long, and a body that wraps at 72 characters with the proposed changes. The body should be formatted as a list of changes. The commit message should not include any author or co-author lines. Be careful to remove the first empty line at the beginning. Thanks!<Cr>", mode = { "n" } }, -- Generate commit message
+    { "<leader>cc", "<Cmd>AvanteAsk Please read the buffer and elaborate a commit message for this change. The commit change must semantic commit message with a title 50 characters long, and a body that wraps at 72 characters with the proposed changes. The body should be formatted as a list of changes. The commit message should not include any author or co-author lines. Be careful to remove the first empty line at the beginning. Thanks!<Cr>", mode = { "n" } }, -- Generate commit message
   },
   opts = {
     provider = "copilot",
