@@ -7,6 +7,7 @@ alias up="tmux attach -d -t tmux_up; clear"
 alias gl="git log --graph --oneline --decorate --all"
 
 alias e=neovide
+alias l="ls -al"
 
 source <(fzf --zsh)
 
