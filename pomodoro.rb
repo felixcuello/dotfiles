@@ -265,7 +265,7 @@ def start_timer(minutes, title)
     seconds = 59
     minutes -= 1
 
-    if minutes % 5 == 0 && minutes > 0
+    if minutes % 10 == 0 && minutes > 0
       system("osascript -e 'display notification \"#{minutes}m remaining!\" with title \"PSQ 📚 TIMER\"' 2>/dev/null")
     end
   end
