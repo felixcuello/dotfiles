@@ -17,3 +17,4 @@ SAVEHIST=100000
 
 setopt appendhistory
 
+alias clip2file='f(){ pngpaste /tmp/clip.png 2>/dev/null && echo "/tmp/clip.png" || echo "No image in clipboard"; }; f'

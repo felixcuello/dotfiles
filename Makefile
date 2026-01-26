@@ -65,7 +65,7 @@ install_lsp_servers:
 
 install_tools:
 	@echo "[INSTALLING] Tools"
-	@brew install lazydocker the_silver_searcher wget neovide git-delta bat
+	@brew install lazydocker the_silver_searcher wget neovide git-delta bat pngpaste
 	@rm -f ${HOME}/.gitconfig && ln -s $(PWD)/git/.gitconfig ${HOME}/.gitconfig
 
 install_fonts:
