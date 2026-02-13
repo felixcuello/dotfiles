@@ -9,6 +9,8 @@ alias gl="git log --graph --oneline --decorate --all"
 alias e=neovide
 alias l="ls -al"
 
+alias brails="bin/rails c -- --autocomplete"
+
 source <(fzf --zsh)
 
 HISTFILE=~/.zsh_history

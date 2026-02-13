@@ -1,9 +1,9 @@
 return {
-  -- dir = '/users/felix/github/neovim-cursor', -- local
-  "felixcuello/neovim-cursor", -- oficial
-  name = 'neovim-cursor',
+  dir = '/users/felix/github/neovim-agents', -- local
+  -- "felixcuello/neovim-agents", -- oficial
+  name = 'neovim-agents',
   config = function()
-    require('neovim-cursor').setup({
+    require('neovim-agents').setup({
       keymap = '<leader>ai',  -- change to whatever you want!
       -- Terminal split configuration
       split = {

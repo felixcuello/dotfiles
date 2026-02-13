@@ -1,0 +1,30 @@
+###############
+# Identity
+#
+# Run neomutt using this:
+#    neomutt -F .neomutt/account_sample.private
+#
+set ssl_starttls=yes
+set ssl_force_tls=yes
+
+set realname = ""               # Your full name
+set from = "<user>@palermo.edu" # Your email address
+set pop_user = "<user>"         # JUST the username, not the full email address
+set pop_pass = "<password>"     # Your POP password
+
+# POP settings
+set pop_delete=yes              # Delete messages from server after downloading
+set pop_reconnect=yes           # Reconnect if connection is lost
+set pop_last=no                 # Retrieve all messages (not just new ones)
+set pop_auth_try_all=no         # Don't try all methods, use specific one
+set pop_authenticators="user"   # Try USER/PASS authentication
+set pop_checkinterval=60        # Check for new mail every 60 seconds
+
+set folder = "~/Mail/palermo"
+set spoolfile = "pops://mail-pops.palermo.edu:995"
+
+set smtp_url="smtps://<user>@maxwell.palermo.edu:465/" # Your SMTP server URL (use only the username)
+set smtp_pass = ""
+set smtp_authenticators="plain"
+
+source common.neomuttrc
