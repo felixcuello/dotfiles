@@ -1,6 +1,6 @@
 return {
-  dir = '/users/felix/github/neovim-agents', -- local
-  -- "felixcuello/neovim-agents", -- oficial
+  -- dir = '/users/felix/github/neovim-agents', -- local
+  "felixcuello/neovim-agents", -- oficial
   name = 'neovim-agents',
   config = function()
     require('neovim-agents').setup({
