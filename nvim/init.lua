@@ -17,4 +17,5 @@ require('config.lsp')                              -- LSP configurations
 -- vim.cmd('colorscheme cyberdream')
 -- vim.cmd('colorscheme cyberdream-light')
 -- vim.cmd('colorscheme catppuccin-mocha')
-vim.cmd('colorscheme ofirkai-darkblue')
+-- vim.cmd('colorscheme ofirkai-darkblue')
+vim.cmd('colorscheme retrobox')
