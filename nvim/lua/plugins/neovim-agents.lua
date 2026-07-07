@@ -8,7 +8,7 @@ return {
       -- Terminal split configuration
       split = {
         position = "right",  -- "right", "left", "top", "bottom"
-        size = 0.8,          -- 50% of editor width/height (0.0-1.0)
+        size = 1.0,          -- 50% of editor width/height (0.0-1.0)
       },
     })
   end,
