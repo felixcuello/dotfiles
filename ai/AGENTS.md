@@ -1,4 +1,21 @@
-# General rules
+# AGENTS.md
+
+This file has to be taken into consideration for any planning, design, or implementation of any agent. It contains rules
+and guidelines that must be followed to ensure consistency and quality across all agents.
+
+## Model usage
+
+- When in ask mode. Before asking a question check if MAX mode is enabled and if it is, tell the user to disable it
+  (/max-mode).
+
+- When in plan mode. Before creating a plan check if MAX mode is enabled and if it is, tell the user to enable it
+  (/max-mode), and use a good model for planning (e.g. opus or above)
+
+- When in agent mode. Before executing a build with an agent check if MAX mode is enabled and if it is, tell the user to
+  enable it (/max-mode), and use a reasonable good model for building (e.g. grok)
+
+
+## General rules
 
 - Do not make assumptions about the requirements.
 
