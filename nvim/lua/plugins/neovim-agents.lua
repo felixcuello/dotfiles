@@ -1,6 +1,6 @@
 return {
-  -- dir = '/users/felix/github/neovim-agents', -- local
-  "felixcuello/neovim-agents", -- oficial
+  dir = '/users/felix/github/neovim-agents', -- local
+  -- "felixcuello/neovim-agents", -- oficial
   name = 'neovim-agents',
   config = function()
     require('neovim-agents').setup({
@@ -15,8 +15,12 @@ return {
     })
 
     -- Fallback for terminals that still send Ctrl+/ as <C-_> (legacy 0x1f).
-    vim.keymap.set({ 'n', 'v' }, '<C-_>', require('neovim-agents').normal_mode_handler, {
+    vim.keymap.set('n', '<C-_>', require('neovim-agents').normal_mode_handler, {
       desc = 'Toggle AI Agent terminal (legacy Ctrl+/)',
+      silent = true,
+    })
+    vim.keymap.set('v', '<C-_>', require('neovim-agents').visual_mode_handler, {
+      desc = 'Show AI Agent terminal and send selection (legacy Ctrl+/)',
       silent = true,
     })
   end,
