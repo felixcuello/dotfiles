@@ -23,6 +23,24 @@ and guidelines that must be followed to ensure consistency and quality across al
   cases do not hesitate to ask if something should be added.
 
 
+## Database Usage
+
+- If you create a query, be sure you're using indices. If the indices are not there, ask if they should be created. If
+  you are not sure, ask for help.
+
+- Never create indices or migrations without asking specifically for them. Altering the database schema is a big deal
+  and should be done with care.
+
+- Do not repeat small queries that can be cached.
+
+- If you're going to update or delete a big number of rows, consider doing it in batches to avoid locking the table for too long.
+
+- Always consider the performance implications of your queries, especially when working with large datasets. Use EXPLAIN
+  to analyze query plans and optimize them as needed.
+
+- When using an ORM or an abstraction layer be careful not to fall into the N+1 query problem. Always check the
+  generated SQL queries to make sure they are efficient and do not cause performance issues.
+
 ## When writing texts, technical documents, or code comments
 - Never us the em dash (—) or the en dash (–). Always use the common dash (-).
 
@@ -37,6 +55,9 @@ and guidelines that must be followed to ensure consistency and quality across al
 
 ## Git rules
 - When writing commit messages, NEVER auto-add your agent name as co-author.
+
+- Never commit. The user must always be the one to commit. The most you can do is to suggest a commit message. The
+  suggested commit message must be semantically correct and follow the conventional commit format. 
 
 
 ## Project Files
