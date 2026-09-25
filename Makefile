@@ -17,13 +17,12 @@ all:
 	@echo " make install_node           # install Node.js"
 	@echo " make install_rbenv          # install rbenv"
 	@echo " make install_ohmyzsh        # install oh-my-zsh"
-	@echo " make install_alacritty      # install alacritty"
 	@echo " make install_ghostty        # install ghostty"
 	@echo " make install_rectangle      # install rectangle"
 	@echo " make install_watchman       # install watchman"
 	@echo ""
 
-install_everything: install_neovim install_tools install_fonts install_tmux install_node install_rbenv install_ohmyzsh install_alacritty install_rectangle install_fzf install_watchman install_dbeaver install_ghostty
+install_everything: install_neovim install_tools install_fonts install_tmux install_node install_rbenv install_ohmyzsh install_rectangle install_fzf install_watchman install_dbeaver install_ghostty
 	@echo "[FINISHED] Everything installed 😀"
 
 install_neovim: install_node install_lsp_servers install_fzf
@@ -123,13 +122,6 @@ install_watchman: # This is required by sorbet
 install_dbeaver:
 	@echo "[INSTALLING] DBeaver community edition"
 	@brew install dbeaver-community
-
-install_alacritty:
-	@echo "[INSTALLING] alacritty"
-	@brew install alacritty
-	@echo "[CONFIGURING] neovim"
-	@rm -f ~/.config/alacritty/
-	@ln -s ${HOME}/github/profile/alacritty/ ${HOME}/.config/alacritty
 
 install_ghostty:
 	@echo "[INSTALLING] ghostty"
