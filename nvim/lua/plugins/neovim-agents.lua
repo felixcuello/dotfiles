@@ -1,6 +1,6 @@
 return {
-  -- dir = '/users/felix/github/neovim-agents', -- local
-  "felixcuello/neovim-agents", -- oficial
+  dir = '/users/felix/github/neovim-agents', -- local
+  -- "felixcuello/neovim-agents", -- oficial
   name = 'neovim-agents',
   config = function()
     require('neovim-agents').setup({
@@ -12,6 +12,13 @@ return {
         position = "right",  -- "right", "left", "top", "bottom"
         size = 1.0,          -- 50% of editor width/height (0.0-1.0)
       },
+      agents = {
+        cursor = { command = "cursor-agent" },
+        claudePSQ = { command = "claude-psq" },
+        claudePERSONAL = { command = "claude-personal" },
+        gemini = { command = "gemini chat" },
+      },
+      default_agent = "cursor",
     })
 
     -- Fallback for terminals that still send Ctrl+/ as <C-_> (legacy 0x1f).

@@ -22,6 +22,19 @@ and guidelines that must be followed to ensure consistency and quality across al
 - Do not build anything that is not explicitly required. However the requirements may be incomplete or vague, in such
   cases do not hesitate to ask if something should be added.
 
+- When asking questions always provide me a tradeoff analysis of the different options you are considering, so I can
+  leverage on your options and make a better decision. If you are not sure about something, say so.
+
+## Metrics and Datadog
+
+- Think about the metrics you want to collect. If there's a metric that has to be added ASK for it.
+
+- Never modify metrics without asking.
+
+- When adding new metrics have special care to not break existing metrics.
+
+- When adding new metrics have special care to check the cardinality of the metric. If the cardinality is too high, it
+  can cause a huge increase costs.
 
 ## Database Usage
 
@@ -42,7 +55,10 @@ and guidelines that must be followed to ensure consistency and quality across al
   generated SQL queries to make sure they are efficient and do not cause performance issues.
 
 ## When writing texts, technical documents, or code comments
-- Never us the em dash (—) or the en dash (–). Always use the common dash (-).
+- Never use the em dash (—) or the en dash (–). Always use the common dash (-).
+
+- Never use the (×) symbol, use either (x) or (*) or the word "by", "times" or "multiplied by" depending if it's in a
+  formula, a comment, or a text.
 
 - Prefer ASCII diagrams over mermaid diagrams if possible, bec  ause they are easier to read and edit in plain text. If
   you must use mermaid diagrams, make sure to include a text description of the diagram in the Markdown file.
@@ -67,7 +83,42 @@ and guidelines that must be followed to ensure consistency and quality across al
   Preserve normal Markdown structure, but avoid wrapping multiple sentences onto one physical line.
 
 
-## Coding and technical decisions
+## Coding
+
+### General rules for coding
+
+- Name and parameters must be self explanatory.
+
+- When writing new functions add 1 up to 4 lines of comments explaining the purpose of the function.
+
+- When adding new parameters to any function be careful to not break existing code. If you need to add a new parameter,
+  make sure it has a default value and is optional.
+    - If you do, the default value must be a safe value that replicates the previous behavior of the function. If you
+      are not sure, ask for help.
+    - If you can't do it safely, ask for help.
+
+- Always try to lint your code.
+
+- Make sure all tests related to the code you are working on pass.
+
+- Do not introduce flakiness in tests. If you see a flaky test, ask if it should be fixed, and if so, fix it.
+
+### When working on a bug
+
+Working on a bug can be tricky because you have to first differentiate if the bug is how the system is supposed to work
+(because some users can complain about a feature that is actually working as intended) or if it is a real bug.
+
+- If it is NOT a bug, explain why it is not a bug and provide a brief explanation on how the system is supposed to work
+  and (if possible) why the user is experiencing it differently. If you're unsure about the behavior, ask for help.
+
+- If it is a bug then follow these steps:
+    - Reproduce the bug and make sure you understand it.
+    - Write a test that reproduces the bug.
+    - Fix the bug following the coding rules and best practices written in this document.
+    - Make sure all tests pass.
+
+
+## Technical Decisions
 
 - When making technical decisions, do not give much weight to development cost.
   Instead, prefer quality, simplicity, robustness, scalability, and long term maintainability.
@@ -75,18 +126,15 @@ and guidelines that must be followed to ensure consistency and quality across al
 - When doing bug fixes, always start with reproducing the bug aligned with how an end user would experience it.
   This makes sure you find the real problem so your fix will actually solve it.
 
-
 ## UI / UX
 - When end-to-end testing a product, be picky about the UI you see and be obsessed with pixel perfection.
 
 
 ## When planning
 
-- If you need to ask questions tell me what are the tradeoffs of the different options you are considering, and what is
-  the best option in your opinion.
-
-- Apply that same high standard to engineering excellence: lint, test failures, and test flakiness.
-  If you see one, even if it is not caused by what you are working on right now, still get it fixed.
+- If you need to ask questions tell me what are the tradeoffs of the different options you are considering. For
+  simplicity I would like you to provide your personal opinion on what you think is the best option as the default
+  option, but also provide the other options and their tradeoffs.
 
 - When you are working on a plan ask as many questions as you need to clarify the requirements. There are no big or
   small questions. The more questions you ask in the plan the better the plan will be, and it's simpler to ask rather
