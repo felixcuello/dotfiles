@@ -8,7 +8,6 @@ local vim = vim
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-
 require('config.general')                          -- General vim configurations
 require('config.remaps')                           -- Keymaps
 require('config.lazy')                             -- Load Lazy plugin manager
@@ -18,4 +17,5 @@ require('config.lsp')                              -- LSP configurations
 -- vim.cmd('colorscheme cyberdream-light')
 -- vim.cmd('colorscheme catppuccin-mocha')
 -- vim.cmd('colorscheme ofirkai-darkblue')
-vim.cmd('colorscheme retrobox')
+-- vim.cmd('colorscheme retrobox')
+vim.cmd('colorscheme oh-my-monokai')
