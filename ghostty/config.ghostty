@@ -1,0 +1,10 @@
+# https://ghostty.org/docs/config
+# List fonts: ghostty +list-fonts
+font-family = "VictorMono NFM Medium"
+font-size = 20
+window-padding-x = 4
+
+# List themes: ghostty +list-themes
+theme = Monokai Soda
+
+background = #000000
