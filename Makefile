@@ -41,7 +41,7 @@ install_neovim: install_node install_lsp_servers install_fzf
 	@echo "[CONFIGURING] neovim"
 	@mkdir -p ${HOME}/.config
 	@rm -f ${HOME}/.config/nvim
-	@ln -s ${HOME}/github/profile/nvim/ ${HOME}/.config/nvim
+	@ln -s "$(shell pwd)/nvim" ${HOME}/.config/nvim
 
 install_lsp_servers:
 	@echo "[LSP] Installing LSP servers"
