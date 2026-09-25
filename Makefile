@@ -123,7 +123,7 @@ install_dbeaver:
 	@echo "[INSTALLING] DBeaver community edition"
 	@brew install dbeaver-community
 
-install_ghostty:
+install_ghostty: install_fonts
 	@echo "[INSTALLING] ghostty"
 	@brew install ghostty
 	@echo "[CONFIGURING] ghostty"
