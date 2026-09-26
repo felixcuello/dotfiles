@@ -6,23 +6,24 @@ all:
 	@echo " 💡 INSTALLERS-A-LA-CARTE 🚀"
 	@echo "---------------------------------------------------------------------------"
 	@echo ""
+	@echo " make install_colima         # install colima"
+	@echo " make install_dbeaver        # install dbeaver community edition"
 	@echo " make install_everything     # install everything"
-	@echo " make install_neovim         # install neovim"
-	@echo " make install_lsp_servers    # install LSP servers"
-	@echo " make install_tools          # install some of the tools I use :-)"
 	@echo " make install_fonts          # install fonts"
 	@echo " make install_fzf            # install fzf"
-	@echo " make install_dbeaver        # install dbeaver community edition"
-	@echo " make install_tmux           # install tmux"
-	@echo " make install_node           # install Node.js"
-	@echo " make install_rbenv          # install rbenv"
-	@echo " make install_ohmyzsh        # install oh-my-zsh"
 	@echo " make install_ghostty        # install ghostty"
+	@echo " make install_lsp_servers    # install LSP servers"
+	@echo " make install_neovim         # install neovim"
+	@echo " make install_node           # install Node.js"
+	@echo " make install_ohmyzsh        # install oh-my-zsh"
+	@echo " make install_rbenv          # install rbenv"
 	@echo " make install_rectangle      # install rectangle"
+	@echo " make install_tmux           # install tmux"
+	@echo " make install_tools          # install some of the tools I use :-)"
 	@echo " make install_watchman       # install watchman"
 	@echo ""
 
-install_everything: install_neovim install_tools install_fonts install_tmux install_node install_rbenv install_ohmyzsh install_rectangle install_fzf install_watchman install_dbeaver install_ghostty
+install_everything: install_neovim install_tools install_fonts install_tmux install_node install_rbenv install_ohmyzsh install_rectangle install_fzf install_watchman install_dbeaver install_ghostty install_colima
 	@echo "[FINISHED] Everything installed 😀"
 
 install_neovim: install_node install_lsp_servers install_fzf
@@ -132,3 +133,10 @@ install_ghostty: install_fonts
 	@ln -s "$(shell pwd)/ghostty" ${HOME}/.config/ghostty
 	@rm -f "${HOME}/Library/Application Support/com.mitchellh.ghostty/config"
 	@rm -f "${HOME}/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+
+# Colima is an open source docker replacement
+install_colima:
+	@echo "[INSTALLING] colima (+docker +docker-compose)"
+	@brew install colima docker docker-compose
+	@mkdir -p ~/.docker/cli-plugins
+	@ln -sfn $$(brew --prefix)/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
