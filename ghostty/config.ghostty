@@ -5,6 +5,8 @@ font-size = 20
 window-padding-x = 4
 
 # List themes: ghostty +list-themes
-theme = Monokai Soda
+theme = Monokai Remastered
 
 background = #000000
+
+keybind = shift+enter=csi:13;2u
