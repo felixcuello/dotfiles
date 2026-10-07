@@ -6,6 +6,8 @@ all:
 	@echo " 💡 INSTALLERS-A-LA-CARTE 🚀"
 	@echo "---------------------------------------------------------------------------"
 	@echo ""
+	@echo " make install_ai             # install AI tools"
+	@echo " make install_aws            # install AWS tools"
 	@echo " make install_colima         # install colima"
 	@echo " make install_dbeaver        # install dbeaver community edition"
 	@echo " make install_everything     # install everything"
@@ -23,7 +25,19 @@ all:
 	@echo " make install_watchman       # install watchman"
 	@echo ""
 
-install_everything: install_neovim install_tools install_fonts install_tmux install_node install_rbenv install_ohmyzsh install_rectangle install_fzf install_watchman install_dbeaver install_ghostty install_colima
+install_aws:
+	@echo "[INSTALLING] AWS tools"
+	@brew install aws-vault
+	@brew install awscli
+
+install_ai:
+	@echo "[INSTALLING] AI tools"
+	@echo "  Installing Claude Code..."
+	@curl -fsSL https://claude.ai/install.sh | bash
+	@echo "  Installing Cursor..."
+	@curl https://cursor.com/install -fsS | bash
+
+install_everything: install_aws install_ai install_neovim install_tools install_fonts install_tmux install_node install_rbenv install_ohmyzsh install_rectangle install_fzf install_watchman install_dbeaver install_ghostty install_colima
 	@echo "[FINISHED] Everything installed 😀"
 
 install_neovim: install_node install_lsp_servers install_fzf
