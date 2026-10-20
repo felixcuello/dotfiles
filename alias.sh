@@ -8,6 +8,8 @@ alias gl="git log --graph --oneline --decorate --all"
 
 alias l="ls -al"
 
+alias lg="lazygit"
+
 alias brails="bin/rails c -- --autocomplete"
 
 source <(fzf --zsh)
