@@ -9,8 +9,8 @@ return {
       keybinding = '<C-/>',
       -- Terminal split configuration
       split = {
-        position = "right",  -- "right", "left", "top", "bottom"
-        size = 1.0,          -- 50% of editor width/height (0.0-1.0)
+        position = "right",  -- right, left, top, bottom
+        size = 0.5,          -- 50% of editor width/height
       },
       agents = {
         cursor = { command = "cursor-agent" },
